@@ -143,6 +143,7 @@ public:
                         discInode.pointers[m]=n;
                         --discSuperBlock.freeDataBlock;
                         ++m;
+                        ++usedBlocs;
                     }
                 }
                 Inodenr++;
