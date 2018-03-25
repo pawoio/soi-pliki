@@ -120,6 +120,18 @@ public:
         DataBlock discBlock;
         readDisc.seekg(sizeof(SuperBlock));
         int usedBlocs=0;
+        for(auto i =0;i<INODE_NUM;++i)
+        {
+            readDisc.seekg(sizeof(SuperBlock)+i* sizeof(Inode));
+            readDisc.read((char*) &discInode, sizeof(Inode));
+            if(discInode.fileSize==0&&!strcmp(discInode.name, filename))
+            {
+                cout<<"file arledy exist"<<endl;
+                readDisc.close();
+                writeDysk.close();
+                return false;
+            }
+        }
         for(auto i =0;i<INODE_NUM&&remeningSize>0;++i)
         {
             readDisc.seekg(sizeof(SuperBlock)+i* sizeof(Inode));
